@@ -6,18 +6,15 @@
 //  Copyright © 2019 Gregory Clark. All rights reserved.
 //
 
-//#ifdef __APPLE__
-///* Defined before OpenGL and GLUT includes to avoid deprecation messages */
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl.h>
 #include <GLUT/glut.h>
 #include "Objects.hpp"
 #include "Controller.hpp"
 
-//#else
-//#include <GL/gl.h>
-//#include <GL/glut.h>
-//#endif
+
+
+
 
 #include <string>
 #include <vector>
