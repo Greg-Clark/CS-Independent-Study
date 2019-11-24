@@ -33,7 +33,7 @@ void Controller::createObjects()
 	obj.push_back(new Floor(OGFloorX, OGFloorY, 6.9, this));
 	obj.push_back(new Floor(OGFloorX+7.1, OGFloorY, 1.5, this));
 	obj.push_back(new Floor(OGFloorX+8.9, OGFloorY, 6.4, this));
-	obj.push_back(new Floor(OGFloorX+15.5, OGFloorY, 6.9, this));
+	obj.push_back(new Floor(OGFloorX+15.5, OGFloorY, 7.5, this));
 
 	//loads in items in order of the level
 	obj.push_back(new Block(OGBlock, squareHeight, this));
@@ -136,6 +136,7 @@ void Controller::createObjects()
 	
 	//this is so that mario can be put behind one of the castle walls
 	drawColumnBrick(18.9+0.3, 5);
+	drawColumnBrick(18.9+0.4, 3);
 
 	
 }
@@ -196,9 +197,9 @@ void Controller::drawCastle(float xPos)
 
 void Controller::createFlag(float xPos)
 {
-	drawColumn(xPos, 1); //create base of flag
+	//drawColumn(xPos, 1); //create base of flag
 	flagPosition = (int)obj.size();
-	for(float i = -0.7f; i < 0.7; i += 0.1)
+	for(float i = -0.8f; i < 0.7; i += 0.1)
 	{
 		obj.push_back(new Floor(xPos+OGBrick+0.049, i, 0.01, this));
 	}
@@ -218,7 +219,38 @@ void Controller::display()
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	
+	if(runAnimation())
+	{
+		if(obj[mariosVecPos]->getY() != -800)	//has mario climb down flag
+		{
+			obj[mariosVecPos]->move();
+			obj[mariosVecPos]->doSomething();
+			for(int i = 0; i < obj.size(); i++)
+			{
+				if(i != mariosVecPos)
+				{
+					obj[i]->doSomething();
+				}
+			}
+		}
+		else if(obj[obj.size()-1]->getX() > -40)	//have mario walk to castle
+		{
+			for(int i = 0; i < obj.size(); i++)
+			{
+				obj[i]->move();
+				obj[i]->doSomething();
+			}
+		}
+		else{
+			for(int i = 0; i < obj.size(); i++)	//keeps everything displaying
+			{
+				obj[i]->doSomething();
+			}
+		}
+		glutPostRedisplay();
+		glFlush();
+		return;
+	}
 	
 	if(keyBuffer['z'])		//if z is pressed double speed
 		moveObjects = 0.05;
@@ -270,12 +302,14 @@ bool Controller::isTouching(Object* p, int i)
 		return false;
 	if(keyBuffer[GLUT_KEY_RIGHT])	//when mario comes from left side
 	{
-		if(p->getX() - 50 == 0 && p->getY() == obj[mariosVecPos]->getY())
+		if(p->getX() - 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
 		{
+			std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 		else if(p->getX() - 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
 		{
+			std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 	}
@@ -283,10 +317,12 @@ bool Controller::isTouching(Object* p, int i)
 	{
 		if(p->getX() + p->getLength() + 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
 		{
+			std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 		else if(p->getX() + p->getLength() + 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
 		{
+			std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 	}
@@ -298,7 +334,12 @@ bool Controller::isTouchingBlock()
 {
 	for(int i = 0; i < flagPosition; ++i)
 	{
-		if(i != mariosVecPos && obj[mariosVecPos]->getY() >= obj[i]->getY()+1 && obj[mariosVecPos]->getY() <= obj[i]->getY()+obj[i]->getHeight()-1 && obj[i]->getX() >= -obj[i]->getLength() && obj[i]->getX() <= 0 && obj[mariosVecPos]->velocityIsNeg())
+		if(i != mariosVecPos
+		   && obj[mariosVecPos]->getY() > obj[i]->getY()
+		   && obj[mariosVecPos]->getY() < obj[i]->getY()+obj[i]->getHeight()
+		   && obj[i]->getX() > -obj[i]->getLength() - 49
+		   && obj[i]->getX() < 49
+		   && obj[mariosVecPos]->velocityIsNeg())
 		{
 			obj[mariosVecPos]->setYPosition((obj[i]->getY() + obj[i]->getHeight())/1000.0);
 			isOnBrick = true;
@@ -316,7 +357,8 @@ bool Controller::nothingBelow()
 	{
 		if(i != mariosVecPos
 		   && (obj[mariosVecPos]->getY() == obj[i]->getY() + obj[i]->getHeight())
-		   && obj[i]->getX() >= -obj[i]->getLength() && obj[i]->getX() <= 0)
+		   && obj[i]->getX() > -obj[i]->getLength() - 49
+		   && obj[i]->getX() < 49)
 		{
 			isOnBrick = true;
 		}
@@ -328,14 +370,23 @@ bool Controller::bumpHead()
 {
 	for(int i = 0; i < flagPosition; ++i)
 	{
-		if(i != mariosVecPos && obj[mariosVecPos]->getY() >= obj[i]->getY()-200 && obj[mariosVecPos]->getY() <= obj[i]->getY() && obj[i]->getX() >= -100 && obj[i]->getX() <= 0  &&  !(obj[mariosVecPos]->velocityIsNeg()))
+		if(i != mariosVecPos
+		   && obj[mariosVecPos]->getY() >= obj[i]->getY()-(2*obj[i]->getHeight())
+		   && obj[mariosVecPos]->getY() <= obj[i]->getY()
+		   && obj[i]->getX() > -obj[i]->getLength() - 49
+		   && obj[i]->getX() < 49
+		   &&  !(obj[mariosVecPos]->velocityIsNeg()))
 		{
+			std::cout << i << ", " << obj[i]->getX() << ", " << obj[i]->getY() << std::endl;
 			return true;
 		}
 	}
 	
 	return false;
 }
+
+
+
 
 //has mario move to the edge of the screen
 bool Controller::isAtEdge()
@@ -363,8 +414,8 @@ bool Controller::isAtPit()
 bool Controller::runAnimation()
 {
 	if(obj[flagPosition]->getX() <= 0)
-		return true;
-	return false;
+		animation = true;
+	return animation;
 }
 
 Controller::~Controller()

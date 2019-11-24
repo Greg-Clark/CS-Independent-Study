@@ -53,7 +53,8 @@ public:
 	bool isAtEdge();
 	bool isAtPit();
 	
-	bool runAnimation();
+	static bool runAnimation();
+	
 	
 	~Controller();
 	
@@ -77,6 +78,7 @@ private:
 	float OGFloorX = -1;
 	float OGFloorY = -1;
 	bool isOnBrick = false;
+	
 };
 
 

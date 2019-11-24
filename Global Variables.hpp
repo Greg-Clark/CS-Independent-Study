@@ -23,5 +23,6 @@ inline bool keyBuffer[256];
 inline int mariosVecPos;
 inline float moveObjects = 0.025;
 inline int flagPosition;
+inline bool animation = false;
 
 #endif /* Global_Variables_hpp */

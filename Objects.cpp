@@ -15,6 +15,11 @@
 
 void Object::move()
 {
+	if(control->runAnimation())
+	{
+		m_x -= 0.015;
+		return;
+	}
 	if(keyBuffer[GLUT_KEY_RIGHT] && obj[mariosVecPos]->getX() == 0)
 	{
 		m_x -= moveObjects;
@@ -183,6 +188,20 @@ void Mario::drawMario()
 
 void Mario::move()
 {
+	if(control->runAnimation())
+	{
+		if(this->getY() < -800)
+		{
+			m_y = -0.8;
+		}
+		else if(this->getY() > -800)
+		{
+			m_y -= 0.005;
+		}
+		return;
+	}
+	
+	
 	if(keyBuffer[GLUT_KEY_UP] && !isJumping)
 	{
 		//not needed until hit detection and
