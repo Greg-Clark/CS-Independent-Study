@@ -297,11 +297,12 @@ void Controller::keyUpPress(int key, int x, int y)
 }
 
 //checks to see if any of the objects are touching mario
-
 bool Controller::isTouching(Object* p, int i)
 {
-	if(keyBuffer['x'])	//allows to you go through all walls
+	if(keyBuffer['x'])	//allows to you go through all walls and get out of pits
 		return false;
+	if(obj[mariosVecPos]->getY() < -850) //causes mario to stop moving while in a pit
+		return true;
 	if(keyBuffer[GLUT_KEY_RIGHT])	//when mario comes from left side
 	{
 		if(p->getX() - 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
