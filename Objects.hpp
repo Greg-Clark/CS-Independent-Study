@@ -34,6 +34,7 @@ public:
 	virtual int getX();
 	virtual int getY();
 	virtual bool velocityIsNeg() { return false; }
+	virtual int getHeight() { return 100;}
 	virtual ~Object() { }
 };
 
@@ -81,6 +82,7 @@ public:
 		m_length = length;
 	}
 	virtual void doSomething();
+	virtual int getHeight();
 private:
 	void drawPipe();
 	float m_length;

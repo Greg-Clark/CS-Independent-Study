@@ -218,8 +218,7 @@ void Controller::display()
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	
-	std::cout << obj[11]->getX() << std::endl;
+	std::cout << obj[13]->getX() << ", "  <<obj[13]->getY() << std::endl;
 	
 	if(keyBuffer['z'])		//if z is pressed double speed
 		moveObjects = 0.05;
@@ -275,13 +274,18 @@ bool Controller::isTouching(Object* p, int i)
 		{
 			return true;
 		}
-	}
-	if(keyBuffer[GLUT_KEY_LEFT])	//when mario comes from right side
-	{
-		if(i >= 11 && i <= 16 && p->getX() + 249 == 0 && p->getY() == obj[mariosVecPos]->getY()) //this is for the pipes
+		else if(i >= 12 && i <= 16 && p->getX() -49 == 0 && obj[mariosVecPos]->getY() <= -500)
 		{
 			return true;
 		}
+	}
+	if(keyBuffer[GLUT_KEY_LEFT])	//when mario comes from right side
+	{
+		if(i == 11 && p->getX() + 249 == 0 && p->getY() == obj[mariosVecPos]->getY()) //this is for the pipes
+		{
+			return true;
+		}
+		
 		else if(p->getX() + 149 == 0 && p->getY() == obj[mariosVecPos]->getY()) //this is for all other objects
 		{
 			return true;

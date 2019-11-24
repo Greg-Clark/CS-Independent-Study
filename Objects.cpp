@@ -125,6 +125,14 @@ void Pipe::drawPipe()
 	glEnd();
 }
 
+int Pipe::getHeight()
+{
+	return (int)(m_length*1000);
+}
+
+//need to finish by checking the heights of the pipes and blocks
+//aka needs to be used when detecting where to land when jumping and when to bump head 
+
 
 
 
