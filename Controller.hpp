@@ -72,7 +72,7 @@ private:
 	float OGBlock = 0.8;
 	float OGBrick = OGBlock + 0.4; //1.2
 	float OGPipeX = OGBlock + 1.2; //2.0
-	float OGPipeLength = 0.2;
+	float OGPipeHeight = 0.2;
 	float OGPipeY = -0.8;
 	float OGFloorX = -1;
 	float OGFloorY = -1;

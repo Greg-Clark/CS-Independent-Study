@@ -22,6 +22,7 @@ class Object
 protected:
 	float m_x, m_y;
 	Controller* control = nullptr;
+	float m_length = 0.1;
 public:
 	Object(float Xpos, float Ypos, Controller *c) {
 		m_x = Xpos;
@@ -34,7 +35,8 @@ public:
 	virtual int getX();
 	virtual int getY();
 	virtual bool velocityIsNeg() { return false; }
-	virtual int getHeight() { return 100;}
+	virtual int getHeight() { return 100;}	//returns how tall an object is
+	virtual int getLength() { return (int)(m_length*1000); } //returns how long an object is
 	virtual ~Object() { }
 };
 
@@ -78,14 +80,15 @@ class DarkBrick : public Object
 class Pipe : public Object
 {
 public:
-	Pipe(float Xpos, float Ypos, float length, Controller *c) : Object(Xpos, Ypos, c) {
-		m_length = length;
+	Pipe(float Xpos, float Ypos, float height, Controller *c) : Object(Xpos, Ypos, c) {
+		m_height = height;
+		m_length = 0.2;
 	}
 	virtual void doSomething();
 	virtual int getHeight();
 private:
 	void drawPipe();
-	float m_length;
+	float m_height;
 };
 
 

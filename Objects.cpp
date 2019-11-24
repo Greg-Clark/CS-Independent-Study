@@ -120,18 +120,16 @@ void Pipe::drawPipe()
 	glColor3f(0, 1, 0);	//color for brown
 	glVertex2f(0, 0);
 	glVertex2f(0.2, 0);
-	glVertex2f(0.2, m_length);
-	glVertex2f(0, m_length);
+	glVertex2f(0.2, m_height);
+	glVertex2f(0, m_height);
 	glEnd();
 }
 
 int Pipe::getHeight()
 {
-	return (int)(m_length*1000);
+	return (int)(m_height*1000);
 }
 
-//need to finish by checking the heights of the pipes and blocks
-//aka needs to be used when detecting where to land when jumping and when to bump head 
 
 
 
