@@ -21,7 +21,7 @@ class Object;
 inline std::vector<Object*> obj;
 inline bool keyBuffer[256];
 inline int mariosVecPos;
-inline float moveObjects = 0.05;
+inline float moveObjects = 0.025;
 inline int flagPosition;
 
 #endif /* Global_Variables_hpp */

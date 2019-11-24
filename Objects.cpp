@@ -163,6 +163,17 @@ void Mario::doSomething()
 	glPopMatrix();
 }
 
+void Mario::drawMario()
+{
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 0);
+	glVertex2f(-0.05, 0);
+	glVertex2f(0.05, 0);
+	glVertex2f(0.05, 0.2);
+	glVertex2f(-0.05, 0.2);
+	glEnd();
+}
+
 
 void Mario::move()
 {
@@ -228,16 +239,7 @@ void Mario::move()
 	
 }
 
-void Mario::drawMario()
-{
-	glBegin(GL_QUADS);
-	glColor3f(1, 0, 0);
-	glVertex2f(-0.05, 0);
-	glVertex2f(0.05, 0);
-	glVertex2f(0.05, 0.2);
-	glVertex2f(-0.05, 0.2);
-	glEnd();
-}
+
 
 void Mario::makeMarioJump()
 {

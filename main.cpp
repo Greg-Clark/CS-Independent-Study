@@ -25,3 +25,14 @@ int main(int argc, char** argv){
 	game->run();
 	delete game;
 }
+
+
+/*
+ Notes on game
+ 
+ Mario's hit boxes when returned from getX run from -50 to 50 meaning that his image is printed from -0.05 to 0.05.
+ Mario's getY position when on the floor is at -0.8
+ 
+ The hitbox on the pipe will correctly hit mario when moving right when the pipe's position is at 50. It will correctly be hit when moving left when its postion is at -249
+ Pipe Hitbox for getY is at -0.8
+ */

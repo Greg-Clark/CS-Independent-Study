@@ -15,8 +15,8 @@
 
 void Controller::run()
 {
-	glutInitWindowSize(1200, 1200);
-	//glutInitWindowSize(1890, 1890); //used for monitor
+	//glutInitWindowSize(1200, 1200);
+	glutInitWindowSize(1890, 1890); //used for monitor
 	glutInitWindowPosition(300, 0);
 	glutCreateWindow("Mario");
 	createObjects();
@@ -46,11 +46,17 @@ void Controller::createObjects()
 
 	obj.push_back(new Block(OGBlock+0.6, squareHeight+0.4, this));
 
+	//start of all pipes. Pos: 11
 	obj.push_back(new Pipe(OGPipeX, OGPipeY, OGPipeLength, this));
 	obj.push_back(new Pipe(OGPipeX+0.8, OGPipeY, OGPipeLength*2, this));
 	obj.push_back(new Pipe(OGPipeX+1.4, OGPipeY, OGPipeLength*3, this));
 	obj.push_back(new Pipe(OGPipeX+2.3, OGPipeY, OGPipeLength*3, this));
-
+	
+	obj.push_back(new Pipe(OGBrick+14.2, OGPipeY, OGPipeLength, this));
+	
+	obj.push_back(new Pipe(OGBrick+15.8, OGPipeY, OGPipeLength, this));
+	//end of all pipes. Pos: 16
+	
 	obj.push_back(new Brick(OGBrick+5.5, squareHeight, this));
 	obj.push_back(new Block(OGBlock+6.0, squareHeight, this));
 	obj.push_back(new Brick(OGBrick+5.7, squareHeight, this));
@@ -108,14 +114,14 @@ void Controller::createObjects()
 
 	drawMirrorPyramid(13.3, 4);
 
-	obj.push_back(new Pipe(OGBrick+14.2, OGPipeY, OGPipeLength, this));
+	
 
 	obj.push_back(new Brick(OGBrick+14.7, squareHeight, this));
 	obj.push_back(new Brick(OGBrick+14.8, squareHeight, this));
 	obj.push_back(new Block(OGBrick+14.9, squareHeight, this));
 	obj.push_back(new Brick(OGBrick+15.0, squareHeight, this));
 
-	obj.push_back(new Pipe(OGBrick+15.8, OGPipeY, OGPipeLength, this));
+	
 
 	drawPyramid(16.0, 8);
 	drawColumn(16.8, 8);
@@ -213,22 +219,21 @@ void Controller::display()
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	
+	std::cout << obj[11]->getX() << std::endl;
 	
-	//moveObjects is to be used to "stop" mario from moving
-	//instead causes objects to become attached to mario since
-	//x position will always be equal. Needs to be properly
-	//implemented later
-	
-	moveObjects = 0.05;
+	if(keyBuffer['z'])		//if z is pressed double speed
+		moveObjects = 0.05;
+	else						//if nothing is pressed normal speed
+		moveObjects = 0.025;
 	
 	
 	//checks to see if mario is touching any of the objects
 	for(int i = 0; i < flagPosition; ++i)
 	{
-		if((isTouching(obj[i]) && i != mariosVecPos))
+		if((isTouching(obj[i], i) && i != mariosVecPos))
 		{
-			moveObjects = 0.0;
-		}
+			moveObjects = 0.0;	//if mario is touching an object then all
+		}						//objects stop moving
 	}
 	//loops through all the objects moves them accordingly
 	for(int i = 0; i < obj.size(); ++i)
@@ -260,19 +265,27 @@ void Controller::keyUpPress(int key, int x, int y)
 
 //checks to see if any of the objects are touching mario
 
-bool Controller::isTouching(Object* p)
+bool Controller::isTouching(Object* p, int i)
 {
 	//currently not working correctly. Not sure why
 	//needs to be fixed later
-	if(keyBuffer[GLUT_KEY_RIGHT])
+	if(keyBuffer[GLUT_KEY_RIGHT])	//when mario comes from left side
 	{
-		if(p->getX() - (moveObjects*1000) == 0 && p->getY() == obj[mariosVecPos]->getY())
+		if(p->getX() - 50 == 0 && p->getY() == obj[mariosVecPos]->getY())
+		{
 			return true;
+		}
 	}
-	if(keyBuffer[GLUT_KEY_LEFT])
+	if(keyBuffer[GLUT_KEY_LEFT])	//when mario comes from right side
 	{
-		if(p->getX()  == 0 && p->getY() == obj[mariosVecPos]->getY())
+		if(i >= 11 && i <= 16 && p->getX() + 249 == 0 && p->getY() == obj[mariosVecPos]->getY()) //this is for the pipes
+		{
 			return true;
+		}
+		else if(p->getX() + 149 == 0 && p->getY() == obj[mariosVecPos]->getY()) //this is for all other objects
+		{
+			return true;
+		}
 	}
 	return false;
 }

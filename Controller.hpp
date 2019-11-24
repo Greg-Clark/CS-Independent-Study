@@ -42,7 +42,7 @@ public:
 	
 	static void keyUpPress(int key, int x, int y);
 	
-	static bool isTouching(Object* p);
+	static bool isTouching(Object* p, int i);
 
 	
 	//checks to see if mario is touching something while he is jumping
