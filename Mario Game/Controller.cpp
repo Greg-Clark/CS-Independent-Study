@@ -252,7 +252,7 @@ void Controller::display()
 		return;
 	}
 	
-	if(keyBuffer['z'])		//if z is pressed double speed
+	if(keyBuffer['z'])		//if z is pressed double speed(sprint)
 		moveObjects = 0.05;
 	else						//if nothing is pressed normal speed
 		moveObjects = 0.025;
