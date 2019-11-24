@@ -219,7 +219,7 @@ void Controller::display()
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	if(runAnimation())
+	if(animation)
 	{
 		if(obj[mariosVecPos]->getY() != -800)	//has mario climb down flag
 		{
@@ -233,7 +233,7 @@ void Controller::display()
 				}
 			}
 		}
-		else if(obj[obj.size()-1]->getX() > -40)	//have mario walk to castle
+		else if(obj[obj.size()-1]->getX() > -25)	//have mario walk to castle
 		{
 			for(int i = 0; i < obj.size(); i++)
 			{
@@ -266,12 +266,14 @@ void Controller::display()
 			moveObjects = 0.0;	//if mario is touching an object then all
 		}						//objects stop moving
 	}
-	//loops through all the objects moves them accordingly
+	//loops through all the objects and moves them accordingly
 	for(int i = 0; i < obj.size(); ++i)
 	{
 		obj[i]->move();
 		obj[i]->doSomething();
 	}
+	if(runAnimation())
+		animation = true;
 	glutPostRedisplay();
 	glFlush();
 }
@@ -304,12 +306,12 @@ bool Controller::isTouching(Object* p, int i)
 	{
 		if(p->getX() - 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
 		{
-			std::cout << i << ", " << p->getX() << std::endl;
+			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 		else if(p->getX() - 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
 		{
-			std::cout << i << ", " << p->getX() << std::endl;
+			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 	}
@@ -317,12 +319,12 @@ bool Controller::isTouching(Object* p, int i)
 	{
 		if(p->getX() + p->getLength() + 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
 		{
-			std::cout << i << ", " << p->getX() << std::endl;
+			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 		else if(p->getX() + p->getLength() + 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
 		{
-			std::cout << i << ", " << p->getX() << std::endl;
+			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
 	}
@@ -377,7 +379,7 @@ bool Controller::bumpHead()
 		   && obj[i]->getX() < 49
 		   &&  !(obj[mariosVecPos]->velocityIsNeg()))
 		{
-			std::cout << i << ", " << obj[i]->getX() << ", " << obj[i]->getY() << std::endl;
+			//std::cout << i << ", " << obj[i]->getX() << ", " << obj[i]->getY() << std::endl;
 			return true;
 		}
 	}
@@ -414,8 +416,8 @@ bool Controller::isAtPit()
 bool Controller::runAnimation()
 {
 	if(obj[flagPosition]->getX() <= 0)
-		animation = true;
-	return animation;
+		return true;
+	return false;
 }
 
 Controller::~Controller()
