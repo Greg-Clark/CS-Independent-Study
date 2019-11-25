@@ -55,6 +55,7 @@ public:
 	
 	static bool runAnimation();
 	
+	bool insideObject();
 	
 	~Controller();
 	

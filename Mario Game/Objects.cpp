@@ -291,9 +291,9 @@ void Mario::makeMarioJump()
 	isJumping = true;
 }
 
-void Mario::setYPosition(float pos)
+void Mario::setYPosition(int pos)
 {
-	m_y = pos;
+	m_y = (pos/1000.0);
 }
 
 bool Mario::velocityIsNeg()

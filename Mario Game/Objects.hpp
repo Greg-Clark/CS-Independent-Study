@@ -29,7 +29,7 @@ public:
 		m_y = Ypos;
 		control = c;
 	}
-	virtual void setYPosition(float pos) { }
+	virtual void setYPosition(int pos) { }
 	virtual void doSomething() = 0;
 	virtual void move();
 	virtual int getX();
@@ -123,7 +123,7 @@ public:
 	virtual void move();
 	virtual int getHeight();
 	
-	virtual void setYPosition(float pos);
+	virtual void setYPosition(int pos);
 	
 	virtual bool velocityIsNeg();
 	

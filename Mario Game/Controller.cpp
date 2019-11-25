@@ -367,7 +367,12 @@ bool Controller::isTouchingBlock()
 		   && obj[i]->getX() < 49
 		   && obj[mariosVecPos]->velocityIsNeg())
 		{
-			obj[mariosVecPos]->setYPosition((obj[i]->getY() + obj[i]->getHeight())/1000.0);
+			
+			obj[mariosVecPos]->setYPosition((obj[i]->getY() + obj[i]->getHeight()));
+			if(insideObject())
+			{
+				obj[mariosVecPos]->setYPosition(obj[mariosVecPos]->getY() + obj[i]->getHeight());
+			}
 			isOnBrick = true;
 			return true;
 		}
@@ -443,6 +448,25 @@ bool Controller::runAnimation()
 		return true;
 	return false;
 }
+
+
+
+
+bool Controller::insideObject()
+{
+	for(int i = 0 ; i < obj.size(); ++i)
+	{
+		if(i != mariosVecPos
+		   && obj[mariosVecPos]->getY() == obj[i]->getY()
+		   && obj[i]->getX() > -obj[i]->getLength() - 49
+		   && obj[i]->getX() < 49)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 Controller::~Controller()
 {
