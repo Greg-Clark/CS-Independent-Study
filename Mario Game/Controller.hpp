@@ -12,6 +12,7 @@
 #include "Objects.hpp"
 #include <vector>
 #include "Global Variables.hpp"
+#include <string>
 
 
 
@@ -56,6 +57,8 @@ public:
 	static bool runAnimation();
 	
 	bool insideObject();
+	
+	static void scoreboard(std::string s, float x, float y);
 	
 	~Controller();
 	

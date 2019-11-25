@@ -220,13 +220,7 @@ void Mario::move()
 		//if(m_y < -0.2)
 		makeMarioJump();
 	}
-	if(keyBuffer[GLUT_KEY_DOWN])
-	{
-		if(m_y > -0.8)
-			m_y -= 0.05;
-		else
-			m_y = -0.8;
-	}
+	
 	//these 2 if statements are used for mario on left edge
 	if(keyBuffer[GLUT_KEY_LEFT] & control->isAtEdge() & m_x > -0.95)
 	{

@@ -244,12 +244,18 @@ void Controller::display()
 		else{
 			for(int i = 0; i < obj.size(); i++)	//keeps everything displaying
 			{
+				scoreboard("You Win!", 0.0, 0.0);
 				obj[i]->doSomething();
 			}
 		}
 		glutPostRedisplay();
 		glFlush();
 		return;
+	}
+	
+	if(obj[mariosVecPos]->getY() < -850)	//displays a game over message if mario falls in a pit
+	{
+		scoreboard("GAME OVER", 0, 0);
 	}
 	
 	if(keyBuffer['z'])		//if z is pressed double speed(sprint)
@@ -465,6 +471,17 @@ bool Controller::insideObject()
 		}
 	}
 	return false;
+}
+
+void Controller::scoreboard(std::string s,float x,float y)
+{
+	glColor3f(1, 1, 1);
+	glRasterPos2f(x, y);
+
+	for (int i = 0; i < s.length(); ++i)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, s[i]);
+	}
 }
 
 
