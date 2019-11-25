@@ -40,6 +40,16 @@ int Object::getY()
 	return (int)(m_y * 1000);
 }
 
+int Object::getHeight() //returns how tall an object is
+{
+	return 100;
+}
+
+int Object::getLength() //returns how long an object is
+{
+	return (int)(m_length*1000);
+}
+
 
 void Block::doSomething()
 {
@@ -291,4 +301,9 @@ bool Mario::velocityIsNeg()
 	if(velocity <= 0)
 		return true;
 	return false;
+}
+
+int Mario::getHeight()
+{
+	return 100;
 }

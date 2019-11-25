@@ -35,8 +35,8 @@ public:
 	virtual int getX();
 	virtual int getY();
 	virtual bool velocityIsNeg() { return false; }
-	virtual int getHeight() { return 100;}	//returns how tall an object is
-	virtual int getLength() { return (int)(m_length*1000); } //returns how long an object is
+	virtual int getHeight(); //returns how tall an object is
+	virtual int getLength(); //returns how long an object is
 	virtual ~Object() { }
 };
 
@@ -121,6 +121,7 @@ public:
 	}
 	virtual void doSomething();
 	virtual void move();
+	virtual int getHeight();
 	
 	virtual void setYPosition(float pos);
 	

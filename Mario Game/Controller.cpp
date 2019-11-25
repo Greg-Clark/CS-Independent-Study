@@ -312,12 +312,20 @@ bool Controller::isTouching(Object* p, int i)
 		return true;
 	if(keyBuffer[GLUT_KEY_RIGHT])	//when mario comes from left side
 	{
-		if(p->getX() - 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+		if(p->getX() - 50 == 0
+		   && ((obj[mariosVecPos]->getY() >= p->getY()
+				&& obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+			   || (obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() >= p->getY()
+				   && obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() < p->getY() + p->getHeight())))
 		{
 			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
-		else if(p->getX() - 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+		else if(p->getX() - 49 == 0
+				&& ((obj[mariosVecPos]->getY() >= p->getY()
+					 && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+					|| (obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() >= p->getY()
+						&& obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() < p->getY() + p->getHeight())))
 		{
 			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
@@ -325,12 +333,20 @@ bool Controller::isTouching(Object* p, int i)
 	}
 	if(keyBuffer[GLUT_KEY_LEFT])	//when mario comes from right side
 	{
-		if(p->getX() + p->getLength() + 49 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
+		if(p->getX() + p->getLength() + 49 == 0
+		   && ((obj[mariosVecPos]->getY() >= p->getY()
+				&& obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+			   || (obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() >= p->getY()
+				   && obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() < p->getY() + p->getHeight()))) //this is for the pipes
 		{
 			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
 		}
-		else if(p->getX() + p->getLength() + 50 == 0 && obj[mariosVecPos]->getY() >= p->getY() && obj[mariosVecPos]->getY() < p->getY() + p->getHeight()) //this is for the pipes
+		else if(p->getX() + p->getLength() + 50 == 0
+				&& ((obj[mariosVecPos]->getY() >= p->getY()
+					 && obj[mariosVecPos]->getY() < p->getY() + p->getHeight())
+					|| (obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() >= p->getY()
+						&& obj[mariosVecPos]->getY() + obj[mariosVecPos]->getHeight() < p->getY() + p->getHeight()))) //this is for the pipes
 		{
 			//std::cout << i << ", " << p->getX() << std::endl;
 			return true;
