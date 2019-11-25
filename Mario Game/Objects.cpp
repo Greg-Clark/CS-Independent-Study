@@ -188,6 +188,7 @@ void Mario::drawMario()
 
 void Mario::move()
 {
+	
 	if(animation)
 	{
 		if(this->getY() < -800)
@@ -217,16 +218,21 @@ void Mario::move()
 			m_y = -0.8;
 	}
 	//these 2 if statements are used for mario on left edge
-	if(keyBuffer[GLUT_KEY_LEFT] & control->isAtEdge() & m_x >= -0.95)
+	if(keyBuffer[GLUT_KEY_LEFT] & control->isAtEdge() & m_x > -0.95)
 	{
 		m_x -= moveObjects;
 	}
 	if(keyBuffer[GLUT_KEY_RIGHT] & control->isAtEdge())
 	{
-		if(m_x >= 0)
+		if(m_x > 0)
 			m_x = 0;
 		else
 			m_x += moveObjects;
+	}
+	if(keyBuffer[GLUT_KEY_RIGHT])	//mario had an issue when returning where he would sometimes not have his position set exactly back to zero. Theses if statements resolved that issue
+	{
+		if(m_x >= -0.001)
+			m_x = 0;
 	}
 	if(isJumping)
 	{

@@ -15,9 +15,9 @@
 
 void Controller::run()
 {
-	//glutInitWindowSize(1200, 1200);
-	glutInitWindowSize(1890, 1890); //used for monitor
-	glutInitWindowPosition(300, 0);
+	glutInitWindowSize(1200, 1200);
+	//glutInitWindowSize(1890, 1890); //used for monitor
+	glutInitWindowPosition(500, 0);
 	glutCreateWindow("Mario");
 	createObjects();
 	glutDisplayFunc(display);
@@ -253,7 +253,14 @@ void Controller::display()
 	}
 	
 	if(keyBuffer['z'])		//if z is pressed double speed(sprint)
-		moveObjects = 0.05;
+	{
+		if(obj[obj.size()-1]->getX() % 50 == 0)	//this protects mario on the 50 interval. If mario lands on a 25, 75 interval he can clip through walls
+		{
+			moveObjects = 0.05;
+		}
+		else
+			moveObjects = 0.025;
+	}
 	else						//if nothing is pressed normal speed
 		moveObjects = 0.025;
 	
