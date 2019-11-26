@@ -175,7 +175,7 @@ int Floor::getHeight()
 }
  int Floor::getLength()
 {
-	return m_length;
+	return (int)(m_length*1000);
 }
 
 

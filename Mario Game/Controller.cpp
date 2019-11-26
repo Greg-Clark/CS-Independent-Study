@@ -375,7 +375,7 @@ bool Controller::isTouchingBlock()
 		{
 			
 			obj[mariosVecPos]->setYPosition((obj[i]->getY() + obj[i]->getHeight()));
-			if(insideObject())
+			if(insideObject())	//if mario is inside of an object, it just moves him up
 			{
 				obj[mariosVecPos]->setYPosition(obj[mariosVecPos]->getY() + obj[i]->getHeight());
 			}
@@ -437,9 +437,11 @@ bool Controller::isAtPit()
 {
 	for(int i = 1; i <= 3; ++i)
 	{
-		if(obj[i]->getX() >= 0 && obj[i]->getX() <= 200)
+		if(obj[i-1]->getX() + obj[i-1]-> getLength() <= 0 && obj[i]->getX() >= 0)
 		return true;
 	}
+//	if(obj[0]->getX() + obj[0]->getLength() <= 0 && obj[1]->getX() >=0)
+//		return true;
 	
 	return false;
 }
