@@ -102,7 +102,8 @@ public:
 		m_length = length;
 	}
 	virtual void doSomething();
-	
+	virtual int getHeight();
+	virtual int getLength();
 private:
 	void drawFloor();
 	float m_length;

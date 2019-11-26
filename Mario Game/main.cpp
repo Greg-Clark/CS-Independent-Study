@@ -44,8 +44,12 @@ int main(int argc, char** argv){
  -------------Should be resolved-------------
  
 	-when jumping around on the pyramids mario very frequently can clip through the top most brick layer causing him to land of a secondary brick below the top most brick. This causes an issue since now he is technically inside of a brick which will cause the game to constantly think he is under something making him unable to jump. After looking at this issue for a considerable amount of time I still have not clue as to why he is able to clip through especially since this issue does not occur every single time. It only occurs some of the time. It also tends to happen more often when neither the left or right keys are being pressed. Can still occur when one of those keys are pressed but only happens rarely in this case. Also not sure why it occurs more frequently with no arrow keys being pressed.
- -------------Should be Resolved-------------
+ -------------Resolved------------- Still works in a sense, just makes mario jump up to the next block. Still have no idea why this occurs
  
 	-When mario is falling or jumping the hit box being detected is his lower half. If it is just the upper half of him hitting the obstacle he will clip right through it
  -------------Should be resolved-------------
+ 
+ 
+	-Issue with mario being able to fall into a pit either too early or too late. Just need to play around with some of the hit boxes for the floors
+ -------------Not Resolved-------------
  */

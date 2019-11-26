@@ -16,7 +16,7 @@
 void Controller::run()
 {
 	glutInitWindowSize(1200, 1200);
-	//glutInitWindowSize(1890, 1890); //used for monitor
+	glutInitWindowSize(1890, 1890); //used for monitor
 	glutInitWindowPosition(500, 0);
 	glutCreateWindow("Mario");
 	createObjects();
@@ -368,7 +368,7 @@ bool Controller::isTouchingBlock()
 	{
 		if(i != mariosVecPos
 		   && obj[mariosVecPos]->getY() > obj[i]->getY()
-		   && obj[mariosVecPos]->getY() < obj[i]->getY()+obj[i]->getHeight()
+		   && obj[mariosVecPos]->getY() <= obj[i]->getY()+obj[i]->getHeight()
 		   && obj[i]->getX() > -obj[i]->getLength() - 49
 		   && obj[i]->getX() < 49
 		   && obj[mariosVecPos]->velocityIsNeg())

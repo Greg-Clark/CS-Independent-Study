@@ -169,7 +169,14 @@ void Floor::drawFloor()
 	glEnd();
 }
 
-
+int Floor::getHeight()
+{
+	return 200;
+}
+ int Floor::getLength()
+{
+	return m_length;
+}
 
 
 
@@ -249,10 +256,8 @@ void Mario::move()
 		if(control->bumpHead())
 			velocity = 0;
 		m_y += velocity;
-		velocity -= 9.8/1000; //only important thing is the ratio here between initial velocity
-		
-		
-		
+		if(velocity > -0.0882)
+			velocity -= 9.8/1000; //only important thing is the ratio here between initial velocity
 	}
 	else if(control->nothingBelow())
 	{
@@ -260,7 +265,10 @@ void Mario::move()
 		if(control->isTouchingBlock())
 			velocity = 0;
 		else
-			velocity -= 9.8/1000;
+		{
+			if(velocity > -0.098)
+				velocity -= 9.8/1000;
+		}
 		m_y += velocity;
 		
 	}
@@ -270,6 +278,8 @@ void Mario::move()
 		m_y = -0.8;
 		isJumping = false;
 	}
+	
+	
 	
 	
 }
