@@ -16,7 +16,7 @@
 void Controller::run()
 {
 	glutInitWindowSize(1200, 1200);
-	glutInitWindowSize(1890, 1890); //used for monitor
+	//glutInitWindowSize(1890, 1890); //used for monitor
 	glutInitWindowPosition(500, 0);
 	glutCreateWindow("Mario");
 	createObjects();
